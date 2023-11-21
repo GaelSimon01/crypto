@@ -28,16 +28,10 @@ virtualenv -p python3 venv
 source venv/bin/activate
 ```
 
-#### Installation du framework flask
+#### Installation d'un framework
 
 ```
-pip install flask
-```
-
-#### Mettre en place SQLalchemy
-
-```
-pip install flask-sqlalchemy
+pip install nom-du-framework
 ```
 
 #### Désactiver le virtual env
