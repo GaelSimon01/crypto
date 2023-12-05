@@ -123,3 +123,27 @@ Malheureusement, ce programme est un massacre, rien que pour déchiffrer le tupl
 Passons donc au cassage_astucieux :
 
 **Proposez une fonction cassage_astucieux(message_clair,message_chiffre) qui permettra de tester moinsde possibilité de clés et ainsi réduire le temps d’exécution du cassage**.
+
+
+
+### Partie 2
+
+#### Question 1 Est-ce vraiment un problème? Justifiez votre réponse.
+
+Le changement d'algo pose un problème car pour les SDES , nous utilisions une clé de 8 bits donc 2^8=256 possibilités de clés. Pour l'AES nous utilisons une clé de 256 bits donc 2^256 possibilités de clés. 
+Par exemple pour juste une clé de 8 bits avce le SDES il nous faut 42 min maximum pour trouver la clé avec le cassege brutal. Pour une clés de 256 bits sur le SDES
+il nous faudrait des siècles voir des millénaires pour trouver la clé.
+
+#### Question 2 Nous allons tenter d’illustrer expérimentalement les différences entre les deux protocoles. Vous évaluerez:
+
+
+
+##### Question 2.1 Le temps d’exécution du chiffrement/déchiffrement d’un message avec chacun des deux protocoles. Ici vous devez le mesurer expérimentalement et donc fournir le code Python associé.
+
+
+
+##### Question 2.2 Le temps de cassage d’AES (même pour un cassage astucieux) si vous deviez l’exécuter sur votre ordinateur. Ici il faut uniquement estimer le temps nécessaire (sinon vous ne pourriez pas rendre votre rapport à temps!). Vous préciserez votre configuration et vous fournirez le détail des calculs.
+
+
+
+#### Question 3 Il existe d’autres types d’attaques que de tester les différentes possibilités de clés. Lesquelles? Vous donnerez une explication succincte de l’une d’elles.
