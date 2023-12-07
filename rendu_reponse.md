@@ -128,10 +128,22 @@ Passons donc au cassage_astucieux :
 En partant du principe que l'on a une double boucle for. Si l'on voudrait faire moins d'itération. Nous pourrions faire une boucle for et une seconde mais qui ne sont pas imbriqué, du genre :
 
 ```py
-for (condition) :
-    # traitement
-for (condition) :
-    # traitement
+def cassage_astucieux(sdes: DES.SDES, message_clair: list[int], message_chiffre: list[int]):
+    dico=dict()
+    for i in range(constantes.LONGUEUR_CLE_BINAIRE):
+        res = []
+        for dec in message_clair:
+            res.append(sdes.encrypt(i,dec))
+        dico[tuple(res)]=i  # convertit la liste en tuple
+    keys=dico.keys()
+    keys=set(keys)
+    for y in range(constantes.LONGUEUR_CLE_BINAIRE):
+        res = []
+        for dec in message_chiffre:
+            res.append(sdes.decrypt(y,dec))
+        if tuple(res) in keys:  # Convertit la liste en tuple
+            return (dico[tuple(res)],y)
+    return False
 ```
 
-Ainsi, nous économiserions énormement de temps ! Maintenant, comment pourrions nous faire ça ? Nous pourrions partir du principe que la première boucle chiffre une première fois avec une clé et que la deuxième boucle va dans l'autre sens et déchiffre avec une clé. Ainsi, on se retrouverai avec une première liste qui sont remplis de caractères chiffré du message en claire une fois avec SDES et une deuxième liste remplis de caractères déchiffrés du message chiffré une fois avec SDES. Avec ces deux listes, nous pourrions trouver une cohérence entre le premier chiffrement et le premier déchiffrement et faire une vérification entre les valeurs au même indice des deux listes.
+Tout d'abord nous avons une premiere boucle qui va chiffrer le message claire avec une clé. La valeur ainsi obtenue est transformer en un tuple qui sera mit dnas un dictionnaire avec comme clé le tuple et en valeur la cléd e chiffrement. Ensuite nous avons une seconde boucle qui va déchiffrer le message chiffré avce une clé. Enfin on regarde si le tuple obtenue est dans l'ensemble des clés du dictionnaire, si il y un e correspondance on retourne la valuer lier au tuple ( la clé 1 ) et la clé 2.

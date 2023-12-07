@@ -13,25 +13,21 @@ def cassage_brutal(sdes: DES.SDES, message_clair: list[int], message_chiffre: li
     return None, None
 
 def cassage_astucieux(sdes: DES.SDES, message_clair: list[int], message_chiffre: list[int]):
-    liste = []
-    for i in range(message_clair):
-        sous_liste = [(i)]
-        for elem in message_clair:
-            sous_liste.append(sdes.encrypt(i, elem))
-        liste.append(sous_liste)
-    liste2 = []
-    for j in range(message_clair):
-        sous_liste = []
-        for elem in message_clair:
-            sous_liste.append(sdes.decrypt(j, elem))
-        liste2.append(sous_liste)
-    
-    for (index1, liste1_1), (index2, liste2_2) in zip(enumerate(liste), enumerate(liste2)):
-        possible_res = []
-        for elem1_1_1, elem2_2_2 in zip(liste1_1, liste2_2):
-            if elem1_1_1 == elem2_2_2: 
-                possible_res.append(elem1_1_1)
-    return None
+    dico=dict()
+    for i in range(constantes.LONGUEUR_CLE_BINAIRE):
+        res = []
+        for dec in message_clair:
+            res.append(sdes.encrypt(i,dec))
+        dico[tuple(res)]=i  # convertit la liste en tuple
+    keys=dico.keys()
+    keys=set(keys)
+    for y in range(constantes.LONGUEUR_CLE_BINAIRE):
+        res = []
+        for dec in message_chiffre:
+            res.append(sdes.decrypt(y,dec))
+        if tuple(res) in keys:  # Convertit la liste en tuple
+            return (dico[tuple(res)],y)
+    return False
 
 sdes = DES.SDES(1, 1)
 fichier_en_clair = gestionnaire_de_fichier.lit_le_fichier(constantes.FICHIER_TXT_ARSENE_LUPIN)
