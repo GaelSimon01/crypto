@@ -125,16 +125,20 @@ class SDES():
         for dec in plaintext:
             res.append(self.double_chiffrement(dec, cle1, cle2))
         return res
+    
+    def double_dechiffrement(self, message_chiffre, cle1, cle2):
+        """Return the plaintext twice decrypted"""
+        return self.decrypt(cle2, self.decrypt(cle1, message_chiffre))
 
 # =================== TESTS ================ #
 
 # 0b indique le type binaire de la valeur
-# cle1=0b1010101000 # 680
-# cle2=0b0110001011 # 395
+cle1=0b1010101000 # 680
+cle2=0b0110001011 # 395
 
-# # message=0b00000001 # 1
-# message_arsene = gestionnaire_de_fichier.lit_le_fichier(constantes.FICHIER_TXT_ARSENE_LUPIN)
-# message_persannes = gestionnaire_de_fichier.lit_le_fichier(constantes.FICHIER_LETTRES_PERSANNES)
+message=0b00000001 # 1
+message_arsene = gestionnaire_de_fichier.lit_le_fichier(constantes.FICHIER_TXT_ARSENE_LUPIN)
+message_persannes = gestionnaire_de_fichier.lit_le_fichier(constantes.FICHIER_LETTRES_PERSANNES)
 # # print("\n on essaie de chiffrer " + str(message) + " avec les clés ( " + str(cle1) + ", " + str(cle2) + " ) ")
 # message = None
 # sdes = SDES(cle1, cle2, message)
@@ -144,20 +148,20 @@ class SDES():
 # print(sdes.encrypte_tout_textes(message_persannes, cle1, cle2))
 
 # Principe de SDES, double chiffrements
-# sdes = SDES(cle1, cle2, message)
-# mc1 = sdes.encrypt(cle1, message)
-# mc2 = sdes.encrypt(cle2, mc1)
-# print(mc1)
-# print(mc2)
+sdes = SDES(cle1, cle2)
+mc1 = sdes.encrypt(cle1, message)
+mc2 = sdes.encrypt(cle2, mc1)
+print(mc1) # 87
+print(mc2) # 241
 # ===========================
 
 
 # Double chiffrement 
 # encrypt(cle2, encrypt(cle1,message)) == SDES(SDES(M, k1), k2)
 
-# print("\n")
-# mdc1 = sdes.decrypt(cle2, mc2)
-# print(mdc1)
-# print("la réponse est")
-# mdc2 = sdes.decrypt(cle1, mdc1)
-# print(mdc2)
+print("\n")
+mdc1 = sdes.decrypt(cle2, mc2)
+print(mdc1) # 87
+print("la réponse est")
+mdc2 = sdes.decrypt(cle1, mdc1)
+print(mdc2)

@@ -6,10 +6,10 @@ from constantes import FICHIER_LETTRES_PERSANNES, FICHIER_TXT_ARSENE_LUPIN
 def convertit_str_en_dec(message_en_str: str) -> list[str]:
     return list(ord(c) for c in message_en_str)
 
-# arsene_lupin = lit_le_fichier(FICHIER_LETTRES_PERSANNES)
-# print(convertit_str_en_dec(arsene_lupin))
+arsene_lupin = lit_le_fichier(FICHIER_LETTRES_PERSANNES)
+print(convertit_str_en_dec(arsene_lupin))
 
-# print("\n# ================================================================ #\n")
+print("\n# ================================================================ #\n")
 
-# lettres_persannes = lit_le_fichier(FICHIER_TXT_ARSENE_LUPIN)
-# print(convertit_str_en_dec(lettres_persannes))
+lettres_persannes = lit_le_fichier(FICHIER_TXT_ARSENE_LUPIN)
+print(convertit_str_en_dec(lettres_persannes))

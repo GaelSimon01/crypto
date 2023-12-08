@@ -93,7 +93,6 @@ Ensuite, le but est de prendre la liste précédemment crée et d'encrypter chaq
 ```py
 def encrypte_tout_textes(self, plaintext, cle1, cle2):
     """Encrypt each character of the plaintext with one key"""
-    liste_car = convertisseur.convertit_str_en_dec(plaintext)
     res = []
     for dec in liste_car:
         res.append(self.double_chiffrement(cle1, cle2, dec))
@@ -109,17 +108,42 @@ Et finalement, nous obtenons cette liste là pour le fichier arsene_lupin_extrai
 En partant du principe que donc les tailles de clés sont de 2^8, on sait que le maximum d'une clé est 256, on peut donc poser le programme très simple mais très brutal suivant :
 
 ```py
-def cassage_brutal(sdes: DES.SDES, message_clair: str, message_chiffre: list[str]):
-    for i in range(256):
-        for j in range(256):
+def cassage_brutal(sdes: DES.SDES, message_clair: list[int], message_chiffre: list[int]):
+    for i in range(message_clair):
+        for j in range(message_clair):
             liste = sdes.encrypte_tout_textes(message_clair, i, j)
             if liste == message_chiffre:
-                return i, j
+                return i, j, liste
     return None, None
 ```
+
+Ici, ce programme boucle deux fois pour retrouver les deux clés qui ont aidés à chiffrer le message, ici, comme en brut force, nous testons littérallement toutes les possibilités de clés.
 
 Malheureusement, ce programme est un massacre, rien que pour déchiffrer le tuple de clés (5, 250), nous prenons 49sec. Nous imaginons pas pour un programme chiffrant les messages avec les clés (250, 250) ... Posons donc le tuple de clés (5, 250), nous prenons 49sec. Ainsi, pour faire une itération entière du premier élement du tuple, nous prenons 49/5 sec par itération de première boucle "for i in range(256):", c'est-à-dire environ 10 sec par itéaration. On peut donc imaginer que pour le tuple de clés (250, 250), nous prenons 250 * 10sec ~= 0,6944444 heure, c'est-à-dire environ 41,666664 min. Ainsi, le cassage_brutal est une catastrophe pourtant le programme est le plus simple possible.
 
 Passons donc au cassage_astucieux :
 
-**Proposez une fonction cassage_astucieux(message_clair,message_chiffre) qui permettra de tester moinsde possibilité de clés et ainsi réduire le temps d’exécution du cassage**.
+**Proposez une fonction cassage_astucieux(message_clair,message_chiffre) qui permettra de tester moins de possibilité de clés et ainsi réduire le temps d’exécution du cassage**.
+
+En partant du principe que l'on a une double boucle for. Si l'on voudrait faire moins d'itération. Nous pourrions faire une boucle for et une seconde mais qui ne sont pas imbriqué, du genre :
+
+```py
+def cassage_astucieux(sdes: DES.SDES, message_clair: list[int], message_chiffre: list[int]):
+    dico=dict()
+    for i in range(constantes.LONGUEUR_CLE_BINAIRE):
+        res = []
+        for dec in message_clair:
+            res.append(sdes.encrypt(i,dec))
+        dico[tuple(res)]=i  # convertit la liste en tuple
+    keys=dico.keys()
+    keys=set(keys)
+    for y in range(constantes.LONGUEUR_CLE_BINAIRE):
+        res = []
+        for dec in message_chiffre:
+            res.append(sdes.decrypt(y,dec))
+        if tuple(res) in keys:  # Convertit la liste en tuple
+            return (dico[tuple(res)],y)
+    return False
+```
+
+Tout d'abord nous avons une premiere boucle qui va chiffrer le message claire avec une clé. La valeur ainsi obtenue est transformer en un tuple qui sera mit dnas un dictionnaire avec comme clé le tuple et en valeur la cléd e chiffrement. Ensuite nous avons une seconde boucle qui va déchiffrer le message chiffré avce une clé. Enfin on regarde si le tuple obtenue est dans l'ensemble des clés du dictionnaire, si il y un e correspondance on retourne la valuer lier au tuple ( la clé 1 ) et la clé 2.
