@@ -147,3 +147,30 @@ def cassage_astucieux(sdes: DES.SDES, message_clair: list[int], message_chiffre:
 ```
 
 Tout d'abord nous avons une premiere boucle qui va chiffrer le message claire avec une clé. La valeur ainsi obtenue est transformer en un tuple qui sera mit dnas un dictionnaire avec comme clé le tuple et en valeur la cléd e chiffrement. Ensuite nous avons une seconde boucle qui va déchiffrer le message chiffré avce une clé. Enfin on regarde si le tuple obtenue est dans l'ensemble des clés du dictionnaire, si il y un e correspondance on retourne la valuer lier au tuple ( la clé 1 ) et la clé 2.
+
+
+
+
+**Alice et Bob utilisent toujours la même clé. Est-ce une bonne pratique ?**
+
+Non, ce n'ets pas une bonne pratique car si un quelqu'un arrive à trouver la clé, il pourra décoder tout les prochian message envoyer par Alice et Bob.
+
+**Le protocole PlutotBonneConfidentialité est inspiré d’un vrai protocole réseau. Lequel? Décrivez la partie associé à la certification des clés qui est absente de PlutotBonneConfidentialité.**
+
+Le protocole "PlutotBonneConfidentialité" est inspiré du protocole TLS et SSL. La partie qui est absente est la certification des clés. En effet, dans le protocole TLS et SSL, il y a un tiers de confiance qui certifie les clés, ce qui permet de certifier que la clé est bien celle de la personne avec qui on communique. Cela permet aussi de certifier que l'on communique bien avce le serveur que l'on souhaite.
+
+**Il n’y a pas que pour l’échange de mots doux q’un tel protocole peut se révéler utile. . . Donnez au moins deux autres exemples de contexte où cela peut se révéler utile**
+
+Le SSL et utiliser dans les transmissions entre un site web et un navigateur pour sécuriser les échanges. On peut aussi le retrouver dans les transaction bancaire pour sécuriser les donné échanger.
+
+**Connaissez-vous des applications de messagerie utilisant des mécanismes de chiffrement similaires? (on parle parfois de chiffrement de bout en bout)? Citez-en au moins deux et décrivez brièvement les mécanismes cryptographiques sous-jacen**
+
+Whatsapp utilise le chiffrement de bout en bout pour sécuriser les messages envoyer entre les utlisateur. Pour cela il utilise le protocole signal de la Signal Foundation
+
+On peu aussi parler de telegram qui permet au utilisateur de choisir pour leur conversation de la crypter avce un protocole de cryptage de bout en bout.
+
+**Récemment, différents projets de loi et règlements (CSAR, EARN IT Act) visent à inciter voir obliger les fournisseurs de services numériques à pouvoir déchiffrer (et donc analyser) les communications de leur.e.s utilisateur.rices. Discutez des arguments en faveur ou contre ces législations, notamment en matière de vie privée**
+
+Pour les arguments contre ces lois on pourrait parler du respect de la vie privé des utilisateurs qui ne souhaitent pas forcement voir leur messages privé être visible par autrui que ce qu'il concerne.
+Cependant pour les arguments pour ses lois, on pourrait citer le but de la loi CSAR qui vise les fournisseurs de contenue a détecter des contenus d'abus sexuels de mineurs en analysant les conversations de leurs utilisateurs. Cela permettrait de lutter contre la pédophilie et de protéger les mineurs.
+
