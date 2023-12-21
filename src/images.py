@@ -57,5 +57,18 @@ def compare_deux_images():
         ecris_dans_un_fichier(DIFFERENCE_FILE_IMAGE_1_AND_IMAGE_2, liste_difference)
     else:
         ecris_dans_un_fichier(DIFFERENCE_FILE_IMAGE_1_AND_IMAGE_2, liste_difference)
+    return liste_difference
 
-compare_deux_images()
+
+# compare_deux_images()
+
+def trouve_la_cle_dans_images(liste):
+    # donnees = lit_le_fichier(DIFFERENCE_FILE_IMAGE_1_AND_IMAGE_2_STORED)
+    res = []
+    for i, bit in enumerate(liste):
+        if i == 64:
+            return res
+        res.append(bit)
+    return res
+
+print(trouve_la_cle_dans_images(compare_deux_images()))
