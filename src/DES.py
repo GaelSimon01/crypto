@@ -11,7 +11,6 @@
 #===========================================================
 from sys import exit
 from time import time
-import convertisseur
 import gestionnaire_de_fichier
 import constantes
 
@@ -139,13 +138,6 @@ cle2=0b0110001011 # 395
 message=0b00000001 # 1
 message_arsene = gestionnaire_de_fichier.lit_le_fichier(constantes.FICHIER_TXT_ARSENE_LUPIN)
 message_persannes = gestionnaire_de_fichier.lit_le_fichier(constantes.FICHIER_LETTRES_PERSANNES)
-# # print("\n on essaie de chiffrer " + str(message) + " avec les clés ( " + str(cle1) + ", " + str(cle2) + " ) ")
-# message = None
-# sdes = SDES(cle1, cle2, message)
-
-# print(sdes.encrypte_tout_textes(message_arsene, cle1, cle2))
-# print("\n#==============================================#\n")
-# print(sdes.encrypte_tout_textes(message_persannes, cle1, cle2))
 
 # Principe de SDES, double chiffrements
 sdes = SDES(cle1, cle2)

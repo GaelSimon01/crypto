@@ -5,6 +5,17 @@ import constantes
 from time import time
 
 def cassage_brutal(sdes: DES.SDES, message_clair: list[int], message_chiffre: list[int]):
+    """
+    Casse la clé en utilisant une méthode brutale en comparant toutes les combinaisons possibles.
+
+    Args:
+    - sdes (DES.SDES): Instance de l'algorithme de chiffrement.
+    - message_clair (list[int]): Message clair en entiers.
+    - message_chiffre (list[int]): Message chiffré en entiers.
+
+    Returns:
+    - Tuple[int, int, list[int]]: Clés trouvées et liste des messages chiffrés.
+    """
     for i in range(constantes.LONGUEUR_CLE_BINAIRE):
         for j in range(constantes.LONGUEUR_CLE_BINAIRE):
             liste = sdes.encrypte_tout_textes(message_clair, i, j)
@@ -13,6 +24,17 @@ def cassage_brutal(sdes: DES.SDES, message_clair: list[int], message_chiffre: li
     return None, None
 
 def cassage_astucieux(sdes: DES.SDES, message_clair: list[int], message_chiffre: list[int]):
+    """
+    Casse la clé en utilisant une méthode plus efficace en construisant un dictionnaire.
+
+    Args:
+    - sdes (DES.SDES): Instance de l'algorithme de chiffrement.
+    - message_clair (list[int]): Message clair en entiers.
+    - message_chiffre (list[int]): Message chiffré en entiers.
+
+    Returns:
+    - Union[Tuple[int, int], bool]: Clés trouvées ou False si aucune clé n'est trouvée.
+    """
     dico=dict()
     for i in range(constantes.LONGUEUR_CLE_BINAIRE):
         res = []
@@ -31,6 +53,18 @@ def cassage_astucieux(sdes: DES.SDES, message_clair: list[int], message_chiffre:
     return False
 
 def run_experiment(sdes, message_clair, message_chiffre, nombre_executions):
+    """
+    Exécute plusieurs fois les méthodes de cassage pour obtenir des statistiques.
+
+    Args:
+    - sdes (DES.SDES): Instance de l'algorithme de chiffrement.
+    - message_clair (list[int]): Message clair en entiers.
+    - message_chiffre (list[int]): Message chiffré en entiers.
+    - nombre_executions (int): Nombre d'exécutions à effectuer.
+
+    Returns:
+    - Tuple[float, float, float, float]: Moyennes des tentatives et temps pour les méthodes brutale et astucieuse.
+    """
     total_tentatives_astucieux = 0
     total_tentatives_brutal = 0
     total_temps_astucieux = 0
@@ -70,10 +104,10 @@ fichier_chiffre = sdes.encrypte_tout_textes(fichier_en_clair, sdes.cle1, sdes.cl
 
 # Résultats pour 10 exécutions
 resultats = run_experiment(sdes, fichier_en_clair, fichier_chiffre, 10)
-print("Moyenne de tentatives (astucieux):", resultats[0], "s")
-print("Moyenne de temps (astucieux):", resultats[1])
-print("Moyenne de tentatives (brutal):", resultats[2], "s")
-print("Moyenne de temps (brutal):", resultats[3])
+print("Moyenne de tentatives (astucieux):", resultats[0])
+print("Moyenne de temps (astucieux):", resultats[1], "s")
+print("Moyenne de tentatives (brutal):", resultats[2])
+print("Moyenne de temps (brutal):", resultats[3], "s")
 
 t1 = time()
 print(fichier_en_clair)
