@@ -39,3 +39,19 @@ pip install nom-du-framework
 ```bash
 deactivate
 ```
+
+## Exécutions des programmes
+
+Pour chaque fihcier .py dans le dossier src/, il vous suffit simplement de compiler les fihciers suivant un par un dans l'ordre définit : 
+
+*(les print dans les fichiers vous permettront de lire les données recueillis)*.
+
+- DES.py
+- res.py
+- AES.py
+- images.py
+- trace_reseaux.py
+
+Pour lire les données recueillis pour les images, ils sont dans les fichiers .txt du dossier src/
+
+Pour le fichier res.py, il faut attendre un petit moment ( environ 1min 30 pour avoir les réponses des temps d'exécutions des focntions )
