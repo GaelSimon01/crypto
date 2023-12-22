@@ -19,3 +19,5 @@ IMAGE_ROSSIGNOL2_STORED = DOSSIER_SRC + "pixels_rossignol2.txt"
 
 DIFFERENCE_FILE_IMAGE_1_AND_IMAGE_2 = "difference.txt"
 DIFFERENCE_FILE_IMAGE_1_AND_IMAGE_2_STORED = DOSSIER_SRC + "difference.txt"
+
+FICHIER_TRACE_RESEAUX = "./analyse_trace/trace_sae.cap"
